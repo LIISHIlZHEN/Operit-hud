@@ -13,6 +13,22 @@ on:
           - ':app:assembleNightly'
           - ':app:assembleClone'
           - ':app:bundleRelease'
+concurrency:
+  group: android-build-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  JAVA_VERSION: '21'
+  NODE_VERSION: '22'
+  ANDROID_NDK_VERSION: '25.1.8937393'
+  ANDROID_CMAKE_VERSION: '3.22.1'
+  ANDROID_API_LEVEL: '26'
+  RUST_VERSION: '1.88.0'
+  MANUAL_DEPS_DIR: manual-deps
+
 jobs:
   build:
     name: Build Android artifacts
